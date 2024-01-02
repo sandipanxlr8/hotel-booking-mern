@@ -10,8 +10,15 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout></Layout>} />
-        {/* <Route
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <p>Home page</p>
+            </Layout>
+          }
+        />
+        <Route
           path="/search"
           element={
             <Layout>
@@ -19,7 +26,6 @@ const App = () => {
             </Layout>
           }
         />
-         */}
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
