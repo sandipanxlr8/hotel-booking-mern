@@ -19,10 +19,12 @@ export const register = async (formData: RegisterFormData) => {
 };
 
 export const validateToken = async () => {
-  const response = await fetch(`${API_BASE_URL}/auth/validate-token`, {
+  const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
     credentials: "include",
   });
-  if (!response.ok) throw new Error("Token is invalid");
+  if (!response.ok) {
+    throw new Error("Token is invalid");
+  }
 
   return response.json();
 };
