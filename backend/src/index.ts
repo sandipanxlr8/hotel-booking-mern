@@ -22,7 +22,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
 mongoose
-  .connect(process.env.MONGODB_URL as string)
+  .connect(process.env.MOGODB_CONNECTION_STRING as string)
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server running on localhost:${PORT}`);
