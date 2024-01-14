@@ -1,4 +1,4 @@
-import { useAppContext } from "@/contexts/AppContext";
+import { useAppContext } from "../contexts/AppContext";
 import { Link } from "react-router-dom";
 import SignOutButton from "./SignOutButton";
 
