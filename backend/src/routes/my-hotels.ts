@@ -27,15 +27,16 @@ router.post(
     body("pricePerNight")
       .notEmpty()
       .isNumeric()
-      .withMessage("Price per night is required and must be a numebr"),
+      .withMessage("Price per night is required and must be a number"),
     body("facilities")
       .notEmpty()
       .isArray()
-      .withMessage("Facilites are requiered"),
+      .withMessage("Facilities are required"),
   ],
   upload.array("imageFiles", 6),
   async (req: Request, res: Response) => {
     try {
+      console.log("req body : ", req.body);
       const imageFiles = req.files as Express.Multer.File[];
       const newHotel: HotelType = req.body;
 

@@ -72,18 +72,20 @@ function DetailsSection() {
       <label className="text-gray-700 text-sm font-bold max-w-[50%]">
         Star Rating
         <select
-          {...register("startRating", { required: "This field is required" })}
+          {...register("starRating", { required: "This field is required" })}
           className="border rounded w-full p-2 text-gray-700 font-normal"
         >
           <option value="" className="text-sm font-bold">
             Select a rating
           </option>
           {[1, 2, 3, 4, 5].map((num) => (
-            <option value={num}>{num}</option>
+            <option key={num} value={num}>
+              {num}
+            </option>
           ))}
         </select>
-        {errors.startRating && (
-          <span className="text-red-500 ">{errors.startRating.message}</span>
+        {errors.starRating && (
+          <span className="text-red-500 ">{errors.starRating.message}</span>
         )}
       </label>
     </div>
