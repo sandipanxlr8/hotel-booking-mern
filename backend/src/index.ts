@@ -27,11 +27,17 @@ app.use(
   })
 );
 
+// serving frontend inside backend using express
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
+
+// serving frontend's condition routes which are not /api/
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
 
 mongoose
   .connect(process.env.MOGODB_CONNECTION_STRING as string)
