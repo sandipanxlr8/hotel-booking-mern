@@ -66,7 +66,6 @@ router.post(
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
-    console.log("userId : ", req.userId);
     const hotels = await Hotel.find({ userId: req.userId });
     res.json(hotels);
   } catch (error) {
