@@ -4,7 +4,7 @@ import { HotelSearchResponse } from "../shared/types";
 
 const router = express.Router();
 
-router.get("search", async (req: Request, res: Response) => {
+router.get("/search", async (req: Request, res: Response) => {
   try {
     const pageSize = 5;
     const pageNumber = parseInt(
