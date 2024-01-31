@@ -4,12 +4,14 @@ import * as apiClient from "../api-client";
 import { useState } from "react";
 import SearchResultsCard from "@/components/SearchResultsCard";
 import Pagination from "@/components/Pagination";
-import StarRatingFilter from "@/components/starRatingFilter";
+import StarRatingFilter from "@/components/StarRatingFilter";
+import HotelTypesFilter from "@/components/HotelTypesFilter";
 
 function Search() {
   const search = useSearchContext();
   const [page, setPage] = useState<number>(1);
   const [selectedStars, setSelectedStars] = useState<string[]>([]);
+  const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
 
   const searchParams = {
     destination: search.destination,
@@ -19,6 +21,7 @@ function Search() {
     childCount: search.childCount.toString(),
     page: page.toString(),
     stars: selectedStars,
+    types: selectedHotelTypes,
   };
 
   const { data: hotelData } = useQuery(["searchHotels", searchParams], () =>
@@ -34,6 +37,17 @@ function Search() {
         : prevStars.filter((star) => star != starRating)
     );
   };
+  const handleHotelTypeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const hotelType = event.target.value;
+
+    setSelectedHotelTypes((prevHotelTypes) =>
+      event.target.checked
+        ? [...prevHotelTypes, hotelType]
+        : prevHotelTypes.filter((hotel) => hotel != hotelType)
+    );
+  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
@@ -45,6 +59,10 @@ function Search() {
           <StarRatingFilter
             selectedStars={selectedStars}
             onChange={handleStarChange}
+          />
+          <HotelTypesFilter
+            selectedHotelTypes={selectedHotelTypes}
+            onChange={handleHotelTypeChange}
           />
         </div>
       </div>
