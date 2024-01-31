@@ -6,12 +6,16 @@ import SearchResultsCard from "@/components/SearchResultsCard";
 import Pagination from "@/components/Pagination";
 import StarRatingFilter from "@/components/StarRatingFilter";
 import HotelTypesFilter from "@/components/HotelTypesFilter";
+import FacilitiesFilter from "@/components/FacilitiesFilter";
+import PriceFilter from "@/components/PriceFilter";
 
 function Search() {
   const search = useSearchContext();
   const [page, setPage] = useState<number>(1);
   const [selectedStars, setSelectedStars] = useState<string[]>([]);
   const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
+  const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
 
   const searchParams = {
     destination: search.destination,
@@ -22,6 +26,8 @@ function Search() {
     page: page.toString(),
     stars: selectedStars,
     types: selectedHotelTypes,
+    facilities: selectedFacilities,
+    maxPrice: selectedPrice?.toString(),
   };
 
   const { data: hotelData } = useQuery(["searchHotels", searchParams], () =>
@@ -37,6 +43,7 @@ function Search() {
         : prevStars.filter((star) => star != starRating)
     );
   };
+
   const handleHotelTypeChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -46,6 +53,18 @@ function Search() {
       event.target.checked
         ? [...prevHotelTypes, hotelType]
         : prevHotelTypes.filter((hotel) => hotel != hotelType)
+    );
+  };
+
+  const handleFacilitiesChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const selectedfacility = event.target.value;
+
+    setSelectedFacilities((prevFacilities) =>
+      event.target.checked
+        ? [...prevFacilities, selectedfacility]
+        : prevFacilities.filter((facility) => facility != selectedfacility)
     );
   };
 
@@ -63,6 +82,14 @@ function Search() {
           <HotelTypesFilter
             selectedHotelTypes={selectedHotelTypes}
             onChange={handleHotelTypeChange}
+          />
+          <FacilitiesFilter
+            selectedFacilities={selectedFacilities}
+            onChange={handleFacilitiesChange}
+          />
+          <PriceFilter
+            selectedPrice={selectedPrice}
+            onChange={(value?: number) => setSelectedPrice(value)}
           />
         </div>
       </div>
