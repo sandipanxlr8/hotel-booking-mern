@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
 import { AiFillStar } from "react-icons/ai";
+import GuestInfoForm from "@/forms/GuestInfoForm/GuestInfoForm";
 
 function Detail() {
   const { hotelId } = useParams();
@@ -23,8 +24,8 @@ function Detail() {
       <div>
         <div className="flex flex-row items-center">
           <span className="flex">
-            {Array.from({ length: hotel.starRating }).map(() => (
-              <AiFillStar className="fill-yellow-400" />
+            {Array.from({ length: hotel.starRating }).map((_, index) => (
+              <AiFillStar key={index} className="fill-yellow-400" />
             ))}
           </span>
           <span className="ml-1 text-sm">{hotel.type}</span>
@@ -34,7 +35,7 @@ function Detail() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {hotel.imageUrls.map((image) => (
-          <div className="h-[300px]">
+          <div key={image} className="h-[300px]">
             <img
               src={image}
               alt={hotel.name}
@@ -46,7 +47,10 @@ function Detail() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
         {hotel.facilities.map((facility) => (
-          <div className="border border-slate-300 rounded-sm p-3">
+          <div
+            key={facility}
+            className="border border-slate-300 rounded-sm p-3"
+          >
             {facility}
           </div>
         ))}
@@ -54,7 +58,12 @@ function Detail() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
         <div className="whitespace-pre-line">{hotel.description}</div>
-        <div className="h-fit">{/* <GuestInfo /> */}</div>
+        <div className="h-fit">
+          <GuestInfoForm
+            hotelId={hotel._id}
+            pricePerNight={hotel.pricePerNight}
+          />
+        </div>
       </div>
     </div>
   );
