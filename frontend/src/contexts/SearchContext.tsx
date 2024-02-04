@@ -25,6 +25,9 @@ type SearchContextProviderProps = {
 export const SearchContextProvider = ({
   children,
 }: SearchContextProviderProps) => {
+  const nextDay = new Date();
+  nextDay.setDate(nextDay.getDate() + 1);
+
   const [destination, setDestination] = useState<string>(
     () => sessionStorage.getItem("destination") || ""
   );
@@ -33,8 +36,7 @@ export const SearchContextProvider = ({
       new Date(sessionStorage.getItem("checkIn") || new Date().toISOString())
   );
   const [checkOut, SetCheckOut] = useState<Date>(
-    () =>
-      new Date(sessionStorage.getItem("checkOut") || new Date().toISOString())
+    () => new Date(sessionStorage.getItem("checkOut") || nextDay.toISOString())
   );
   const [adultCount, SetAdultCount] = useState<number>(() =>
     parseInt(sessionStorage.getItem("adultCount") || "1")
@@ -63,11 +65,11 @@ export const SearchContextProvider = ({
       SetHotelId(hotelId);
     }
 
-    sessionStorage.setItem("destination", destination);
-    sessionStorage.setItem("checkIn", checkIn.toISOString());
-    sessionStorage.setItem("checkOut", checkOut.toISOString());
-    sessionStorage.setItem("adultCount", adultCount.toString());
-    sessionStorage.setItem("childCount", childCount.toString());
+    // sessionStorage.setItem("destination", destination);
+    // sessionStorage.setItem("checkIn", checkIn.toISOString());
+    // sessionStorage.setItem("checkOut", checkOut.toISOString());
+    // sessionStorage.setItem("adultCount", adultCount.toString());
+    // sessionStorage.setItem("childCount", childCount.toString());
 
     if (hotelId) {
       sessionStorage.setItem("hotelId", hotelId);

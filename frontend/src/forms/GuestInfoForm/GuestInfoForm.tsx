@@ -42,6 +42,11 @@ function GuestInfoForm({ hotelId, pricePerNight }: Props) {
 
   const minDate = new Date();
   const maxDate = new Date();
+
+  if (checkIn) {
+    maxDate.setDate(checkIn.getDate() + 1);
+  }
+
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
   const onSignInClick = (data: GuestInfoFormData) => {
@@ -99,7 +104,7 @@ function GuestInfoForm({ hotelId, pricePerNight }: Props) {
               endDate={checkOut}
               minDate={minDate}
               maxDate={maxDate}
-              placeholderText="Check-in Date"
+              placeholderText="Check-out Date"
               className="min-w-full bg-white p-2 focus:outline-none"
               wrapperClassName="min-w-full"
             />

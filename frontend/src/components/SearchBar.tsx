@@ -31,6 +31,10 @@ const SearchBar = () => {
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
+  if (checkIn >= checkOut) {
+    checkOut.setTime(checkIn.getTime() + 86400000);
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -74,6 +78,7 @@ const SearchBar = () => {
         <DatePicker
           selected={checkIn}
           onChange={(date) => setCheckIn(date as Date)}
+          selectsStart
           startDate={checkIn}
           endDate={checkOut}
           minDate={minDate}
@@ -90,9 +95,9 @@ const SearchBar = () => {
           selectsStart
           startDate={checkIn}
           endDate={checkOut}
-          minDate={minDate}
+          minDate={new Date(checkIn.getTime() + 86400000)}
           maxDate={maxDate}
-          placeholderText="Check-in Date"
+          placeholderText="Check-out Date"
           className="min-w-full bg-white p-2 focus:outline-none"
           wrapperClassName="min-w-full"
         />
