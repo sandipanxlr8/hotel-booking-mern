@@ -92,7 +92,7 @@ router.post(
     const totalCost = hotel.pricePerNight * numberOfNights;
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: totalCost,
+      amount: totalCost * 100,
       currency: "inr",
       metadata: {
         hotelId,
@@ -101,12 +101,12 @@ router.post(
     });
 
     if (!paymentIntent.client_secret) {
-      res.status(500).json({ message: "Error creating payment intent" });
+      return res.status(500).json({ message: "Error creating payment intent" });
     }
 
     const response = {
       paymentIntentId: paymentIntent.id,
-      clientSecret: paymentIntent.client_secret?.toString(),
+      clientSecret: paymentIntent.client_secret.toString(),
       totalCost,
     };
 
