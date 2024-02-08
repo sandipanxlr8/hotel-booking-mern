@@ -52,7 +52,7 @@ test("should boook hotel", async ({ page }) => {
   await page.getByText("Indian Getaways").click();
   await page.getByRole("button", { name: "Book Now" }).click();
 
-  await expect(page.getByText("Total Cost: ₹3000.00")).toBeVisible();
+  await expect(page.getByText("Total Cost: ₹2000.00")).toBeVisible();
 
   const stripeFrame = page.frameLocator("iframe").first();
   await stripeFrame
@@ -72,4 +72,9 @@ test("should boook hotel", async ({ page }) => {
   await confrimPaymentStripeFrame
     .getByRole("button", { name: "Complete" })
     .click();
+
+  await expect(page.getByText("Booking Saved")).toBeVisible();
+
+  await page.getByRole("link", { name: "My Bookings" }).click();
+  await expect(page.getByText("Indian Getaways")).toBeVisible();
 });

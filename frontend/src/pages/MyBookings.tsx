@@ -39,7 +39,7 @@ function MyBookings() {
                 <div>
                   <span className="font-bold mr-2">Dates: </span>
                   <span>
-                    {new Date(booking.checkIn).toDateString()} -
+                    {new Date(booking.checkIn).toDateString()} - {""}
                     {new Date(booking.checkOut).toDateString()}
                   </span>
                 </div>
