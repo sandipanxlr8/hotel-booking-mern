@@ -9,7 +9,7 @@ function Header() {
     <div className="bg-blue-800 py-6">
       <div className="container mx-auto flex justify-between">
         <span className="text-2xl text-white font-bold tracking-tight">
-          <Link to="/">HolidayStays.com</Link>
+          <Link to="/">HolidayStays</Link>
         </span>
         <span className="flex space-x-2">
           {isLoggedIn ? (
